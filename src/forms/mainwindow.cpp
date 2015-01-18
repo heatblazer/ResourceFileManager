@@ -7,7 +7,7 @@
 
 #define ASSETS_FOLDER "assets"
 #define RESOURCE_FILEPATH "resourcefile"
-#define IMAGE_FILE "logo.png"
+#define IMAGE_FILE "knight.png"
 
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -17,18 +17,16 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
 
     ResourceFileManager resourceFileManager(ASSETS_FOLDER);
-#ifdef RESOURCE_TEST_1
-    QByteArray buffer = resourceFileManager.loadFrom(RESOURCE_FILEPATH, IMAGE_FILE);
+
+    /* TODO - add some string to pass as argument */
+    QByteArray buffer = resourceFileManager.loadFrom("archives/Ar1.zip", "knight.png");
       // QByteArray possesses the following operator
       //     QByteArray operator==(const char *a1, const QByteArray &a2)
       // thus the following code is valid as it compares nullptr (const char*)
       // to a QByteArray argument:
       //     if (nullptr == buffer) {
       // It is still better to just use buffer.isEmpty()
-#else
-    QByteArray buffer = resourceFileManager.loadFromResourceFile(
-                "Ar1.zip", "2.jpg");
-#endif
+
     if (buffer.isEmpty()) {
         qDebug() << IMAGE_FILE << "not found";
     }
