@@ -4,9 +4,9 @@
 #
 #-------------------------------------------------
 
-
+gcc | clang* {
     QMAKE_CXXFLAGS = -std=c++11
-
+}
 
 QT       += core gui
 
@@ -18,7 +18,7 @@ TEMPLATE = app
 gcc {
     DESTDIR = ../__build-output/gcc
 }
-clang {
+clang* {
     DESTDIR = ../__build-output/clang
 }
 msvc {
