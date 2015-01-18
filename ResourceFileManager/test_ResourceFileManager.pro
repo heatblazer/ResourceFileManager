@@ -17,6 +17,7 @@ TEMPLATE = app
 
 DESTDIR = ../__build-output
 
+
 SOURCES += src/main.cpp\
     src/forms/mainwindow.cpp \
     src/utilities/resourcefilemanager.cpp \
@@ -27,12 +28,13 @@ HEADERS  += src/forms/mainwindow.h \
     src/utilities/resourcefilemanager.h \
     src/utilities/Archiver.h
 
-
 FORMS    += src/forms/mainwindow.ui
 
 RESOURCES += \
     res/resources.qrc
 
+
+# Build deployment
 CONFIG += copy_dir_files # Enables the install rule to also copy directories, not just files
 CONFIG += no_check_exist
 

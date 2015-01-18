@@ -6,13 +6,13 @@ typedef unsigned char uint8;
 typedef unsigned short uint16;
 typedef unsigned int uint;
 
-struct ZFile readBufferFromArchive(const char* arname, const char* filename) {
+struct ZFile loadFromZFile(const char* zfilepath, const char* filename) {
     struct ZFile zfile = {0, 0};
     mz_zip_archive zip_archive;
     mz_bool status;
 
     memset(&zip_archive, 0, sizeof(zip_archive));
-    status = mz_zip_reader_init_file(&zip_archive, arname, 0);
+    status = mz_zip_reader_init_file(&zip_archive, zfilepath, 0);
     if (!status) {
         printf("Zip read failed!\n");
         return zfile;

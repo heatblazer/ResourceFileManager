@@ -50,7 +50,7 @@ QByteArray ResourceFileManager::loadFromFolder(const QString& folderPath, const 
 
 QByteArray ResourceFileManager::loadFromResourceFile(const QString& resourceFilePath, const QString& fileName)
 {
-    ZFile zfile = readBufferFromArchive(resourceFilePath.toStdString().c_str(),
+    ZFile zfile = loadFromZFile(resourceFilePath.toStdString().c_str(),
                                         fileName.toStdString().c_str()) ;
     if ((zfile.fsize <= 0) || (zfile.data == nullptr)) {
         return nullptr;

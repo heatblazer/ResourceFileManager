@@ -6,6 +6,6 @@ struct ZFile {
     unsigned long long fsize;
 };
 
-struct ZFile readBufferFromArchive(const char* arname, const char* filename);
+struct ZFile loadFromZFile(const char* zfilepath, const char* filename);
 
 #endif // ARCHIVER_H
