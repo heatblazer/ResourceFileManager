@@ -1,21 +1,11 @@
 #ifndef ARCHIVER_H
 #define ARCHIVER_H
-/* use Archiver.[NAME OF FOO] */
 
-#define MinizAR _getArkive() /* simulate a C namespace */
-
-struct ZFILE {
+struct ZFile {
     const void* data;
-    unsigned int  fsize;
+    unsigned long long fsize;
 };
 
-typedef struct ZFILE (*_readToBuffFromArch)(const char*, const char*);
+struct ZFile readBufferFromArchive(const char* arname, const char* filename);
 
-typedef void(*_dummy)(void);
-struct Arkive {
-	_readToBuffFromArch readBufferFromArchive;
-	_dummy  dummy; //plain test
-};
-
-struct Arkive _getArkive();
-#endif //Archiver
+#endif // ARCHIVER_H

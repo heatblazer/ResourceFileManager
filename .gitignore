@@ -221,6 +221,7 @@ pip-log.txt
 .dropbox
 *.user.*
 build-*/
+__build-*
 *.qm
 *.exe
 __reports__/

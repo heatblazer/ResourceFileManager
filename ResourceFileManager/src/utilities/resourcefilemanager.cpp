@@ -50,15 +50,13 @@ QByteArray ResourceFileManager::loadFromFolder(const QString& folderPath, const 
 
 QByteArray ResourceFileManager::loadFromResourceFile(const QString& resourceFilePath, const QString& fileName)
 {
-    Q_UNUSED(resourceFilePath)
-    Q_UNUSED(fileName)
-/* added 18.01.2015 - see readme */
-    ZFILE zfile = MinizAR.readBufferFromArchive(resourceFilePath.toStdString().c_str(),
-                                                fileName.toStdString().c_str()) ;
-    if ( (zfile.fsize <= 0)  || zfile.data == 0x00 ) {
-        return nullptr; //keep original return
-    } /* else */
+    ZFile zfile = readBufferFromArchive(resourceFilePath.toStdString().c_str(),
+                                        fileName.toStdString().c_str()) ;
+    if ((zfile.fsize <= 0) || (zfile.data == nullptr)) {
+        return nullptr;
+    }
 
     QByteArray buffer((const char*)zfile.data, zfile.fsize);
+
     return buffer;
 }
