@@ -2,7 +2,7 @@
 #define ARCHIVER_H
 /* use Archiver.[NAME OF FOO] */
 
-#define MinizAR _getArkive()
+#define MinizAR _getArkive() /* simulate a C namespace */
 
 struct ZFILE {
     const void* data;
