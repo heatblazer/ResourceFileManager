@@ -3,8 +3,8 @@
 # Project created by QtCreator 2014-09-19T18:19:24
 #
 #-------------------------------------------------
-QMAKE_CXXFLAGS = -std=c++11
-gcc {
+
+gcc | clang {
     QMAKE_CXXFLAGS = -std=c++11
 }
 
@@ -15,37 +15,48 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 TARGET = test_ResourceFileManager
 TEMPLATE = app
 
-DESTDIR = ../__build-output
+gcc {
+    DESTDIR = ../__build-output/gcc
+}
+clang {
+    DESTDIR = ../__build-output/clang
+}
+msvc {
+    DESTDIR = ../__build-output/msvc
+}
 
 
-SOURCES += src/main.cpp\
-    src/forms/mainwindow.cpp \
-    src/utilities/resourcefilemanager.cpp \
-    src/utilities/miniz.c \
-    src/utilities/Archiver.c
+SOURCES += \
+    examples/src/main.cpp \
+    examples/src/forms/mainwindow.cpp \
+    src/resourcefilemanager.cpp \
+    src/zfile/miniz.c \
+    src/zfile/zfile.c
 
-HEADERS  += src/forms/mainwindow.h \
-    src/utilities/resourcefilemanager.h \
-    src/utilities/Archiver.h
+HEADERS  += \
+    examples/src/forms/mainwindow.h \
+    src/resourcefilemanager.h \
+    src/zfile/zfile.h
 
-FORMS    += src/forms/mainwindow.ui
+FORMS    += \
+    examples/src/forms/mainwindow.ui
 
 RESOURCES += \
-    res/resources.qrc
+    examples/res/resources.qrc
 
 
 # Build deployment
 CONFIG += copy_dir_files # Enables the install rule to also copy directories, not just files
 CONFIG += no_check_exist
 
-assets.path = $$DESTDIR/assets
-assets.files += $$files(assets/*.*)
+assets.path = $$DESTDIR/../assets
+assets.files += $$files(examples/assets/*.*)
 INSTALLS += assets
 
-assets_archives.path = $$DESTDIR/assets/archives
-assets_archives.files += $$files(assets/archives/*.*)
+assets_archives.path = $$DESTDIR/../assets/archives
+assets_archives.files += $$files(examples/assets/archives/*.*)
 INSTALLS += assets_archives
 
-assets_images.path = $$DESTDIR/assets/images
-assets_images.files += $$files(assets/images/*.*)
+assets_images.path = $$DESTDIR/../assets/images
+assets_images.files += $$files(examples/assets/images/*.*)
 INSTALLS += assets_images

@@ -1,4 +1,4 @@
-#include "Archiver.h"
+#include "zfile.h"
 #include "miniz.c"
 #include <stdio.h>
 

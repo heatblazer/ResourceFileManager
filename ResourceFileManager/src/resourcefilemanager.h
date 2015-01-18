@@ -1,11 +1,10 @@
 #ifndef RESOURCEFILEMANAGER_H
 #define RESOURCEFILEMANAGER_H
-extern "C" {
-    #include "Archiver.h"
-}
+
 #include <QtCore/QByteArray>
 #include <QtCore/QObject>
 #include <QtCore/QString>
+
 
 class ResourceFileManager : public QObject
 {

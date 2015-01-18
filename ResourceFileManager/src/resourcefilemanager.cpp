@@ -1,9 +1,13 @@
-
 #include "resourcefilemanager.h"
+
 #include <QtCore/QDebug>
 #include <QtCore/QDir>
 #include <QtCore/QFileInfo>
 #include <QtCore/QIODevice>
+
+extern "C" {
+    #include "zfile/zfile.h"
+}
 
 ResourceFileManager::ResourceFileManager(QString resourceFolderPath, QObject* parent) :
     QObject(parent),
