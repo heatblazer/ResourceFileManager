@@ -18,7 +18,7 @@ public:
 
 private:
     QByteArray loadFromFolder(const QString& folderPath, const QString& fileName);
-public: QByteArray loadFromResourceFile(const QString& resourceFilePath, const QString& fileName);
+QByteArray loadFromResourceFile(const QString& resourceFilePath, const QString& fileName);
 
 private:
     QString _resourceFolderPath;
