@@ -3,7 +3,7 @@
 # Project created by QtCreator 2014-09-19T18:19:24
 #
 #-------------------------------------------------
-
+QMAKE_CXXFLAGS = -std=c++11
 gcc {
     QMAKE_CXXFLAGS = -std=c++11
 }
