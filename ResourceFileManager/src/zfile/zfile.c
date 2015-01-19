@@ -6,39 +6,35 @@ typedef unsigned char uint8;
 typedef unsigned short uint16;
 typedef unsigned int uint;
 
-/* in case we no longer need miniz.c custom functions
- * to avoid including <string.h>
- * */
-#define DISABLE_MACRO
-
-#ifdef DISABLE_MACRO
-#else
-	#define mycat(x, y)  #x #y
-	#define myXcat(x,y) mycat(x,y)
-#endif
-
-/*aux print is to be used for logging messages only
- * not todisplay debug messages
- * */
-
-int aux_strlen(const char* data) {
-    int i=0;
+int zfile_aux_strlen(const char* data) {
+    int i = 0;
     while (data[i++] != '\0');
-    return i - 1; /*discard the null terminator*/
+
+    /*discard the null terminator*/
+    return i - 1;
 }
 
-void aux_print(const char *message, const char *file) {
-    if (aux_strlen(file) <= 0) {
+///
+/// \brief zfile_aux_print
+/// \param message
+/// \param file
+///
+/// For logging only not to display debug messages
+///
+void zfile_aux_print(const char* message, const char* file) {
+    if (zfile_aux_strlen(file) <= 0) {
         fprintf(stdout, "%s\n", message);
-    } else {
+    }
+    else {
         FILE *fp = fopen(file, "w");
         fprintf(fp, "%s\n", message);
+
         fclose(fp);
     }
 }
 
 int aux_isDir(const char* file) {
-    return ((file[aux_strlen(file)-1] == '/') || (file[aux_strlen(file)-1] == '\\'));
+    return ((file[zfile_aux_strlen(file)-1] == '/') || (file[zfile_aux_strlen(file)-1] == '\\'));
 }
 
 struct ZFile loadFromZFile(const char* zfilepath, const char* filename) {
@@ -56,33 +52,34 @@ struct ZFile loadFromZFile(const char* zfilepath, const char* filename) {
     mz_zip_archive_file_stat fstat;
 
     int i  = 0;
-    for (; i < (int) mz_zip_reader_get_num_files(&zip_archive); i++ ) {
+    for (; i < (int) mz_zip_reader_get_num_files(&zip_archive); ++i) {
 
         mz_bool statusInFile = mz_zip_reader_file_stat(&zip_archive, i, &fstat);
 
         if ( aux_isDir(fstat.m_filename) ){
-            aux_print("File is a dir", "");
-            /* perform recursive call or discard the message */
-
-        } else if ( !statusInFile ) {
-//            aux_print(mycat(READING FILE STAT FAILED, ),"");
+            zfile_aux_print("File is a dir", "");
+        }
+        else if (!statusInFile) {
             mz_zip_reader_end(&zip_archive);
+
             return zfile;
-        } else {
-            if (strcmp(filename, fstat.m_filename) == 0) {
+        }
+        else if (strcmp(filename, fstat.m_filename) == 0) {
                 printf("File found: %s\n", fstat.m_filename);
-            zfile.data = mz_zip_reader_extract_file_to_heap(
-                        &zip_archive,
-                        filename,
-                        (size_t*)&fstat.m_uncomp_size,
-                        0);
+
+                zfile.data = mz_zip_reader_extract_file_to_heap(
+                            &zip_archive,
+                            filename,
+                            (size_t*)&fstat.m_uncomp_size,
+                            0);
                 zfile.fsize = fstat.m_uncomp_size;
+
                 if (!zfile.data) {
                     fprintf(stderr, "Error reading %s filename\n", fstat.m_filename);
-                } else {
+                }
+                else {
                     return zfile;
                 }
-            }
         }
     }
 

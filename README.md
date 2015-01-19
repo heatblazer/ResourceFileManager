@@ -1,11 +1,16 @@
+# Resource File Manager
 
-# Resource File Manager with Miniz
+- Supports Qt 5.4.
+- Supports transparent loading of resources from directory or a resource file (zip).
 
-Resource file manager for QtCore with embeded miniz.c
+
+**Qt Creator - configuration:**
+
+Add ***"install"*** to ***Make arguments ***- this is required to copy the sample resources to the build output directory.
 
 ----------
 
 
 **[18.01.2015]**
 
-Resource file loader with embedded miniz reads  data from a file or a directory and loads it into QByteArray for usage with Qt programs. Can be reused for other APIs.
+Implemented zip loading with [miniz](https://code.google.com/p/miniz/).
