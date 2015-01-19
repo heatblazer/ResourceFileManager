@@ -5,9 +5,27 @@
 /* in case we no longer need miniz.c custom functions
  * to avoid including <string.h>
  * */
+#define mycat(x, y)  #x #y
+#define myXcat(x,y) mycat(x,y)
+
+/*aux print is to be used for logging messages only
+ * not todisplay debug messages
+ * */
+void aux_print(const char* message, const char* file);
 
 int aux_isDir(const char*) ;
 int aux_strlen(const char*);
+
+void aux_print(const char *message, const char *file) {
+    if ( aux_strlen(file) <= 0) {
+        fprintf(stdout, "%s\n", message);
+    } else {
+        FILE *fp = fopen(file, "w");
+        fprintf(fp, "%s\n", message);
+        fclose(fp);
+    }
+}
+
 
 int aux_isDir(const char* file) {
     return (file[aux_strlen(file)-1] == '/' || file[aux_strlen(file)-1] == '\\');
@@ -40,21 +58,21 @@ struct ZFile loadFromZFile(const char* zfilepath, const char* filename) {
         mz_bool statusInFile = mz_zip_reader_file_stat(&zip_archive, i, &fstat);
 
         if ( aux_isDir(fstat.m_filename) ){
-            fprintf(stdout, "FILE IS A DIR\n");
+            aux_print(mycat(FILE IS A DIR, ), "");
             /* perform recursive call or discard the message */
 
         } else if ( !statusInFile ) {
-            fprintf(stderr, "Reading filestat failed\n");
+            aux_print(mycat(READING FILE STAT FAILED, ),"");
             mz_zip_reader_end(&zip_archive);
             return zfile;
         } else {
             if ( strcmp(filename, fstat.m_filename) == 0) {
-                printf("FOUND MY FILE %s\n", filename);
+                printf("Found my file : %s\n", fstat.m_filename);
                 zfile.data = mz_zip_reader_extract_file_to_heap(
                             &zip_archive, filename, (uint)&fstat.m_uncomp_size, 0);
                 zfile.fsize = fstat.m_uncomp_size;
                 if ( !zfile.data ) {
-                    fprintf(stderr, "Error reading %s\n", filename);
+                    fprintf(stderr, "Error reading %s filename\n", fstat.m_filename);
                 } else {
                     return zfile;
                 }
