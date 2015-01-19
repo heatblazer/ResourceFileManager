@@ -5,8 +5,13 @@
 /* in case we no longer need miniz.c custom functions
  * to avoid including <string.h>
  * */
-#define mycat(x, y)  #x #y
-#define myXcat(x,y) mycat(x,y)
+#define DISABLE_MACRO
+
+#ifdef DISABLE_MACRO
+#else
+	#define mycat(x, y)  #x #y
+	#define myXcat(x,y) mycat(x,y)
+#endif
 
 /*aux print is to be used for logging messages only
  * not todisplay debug messages
@@ -58,7 +63,7 @@ struct ZFile loadFromZFile(const char* zfilepath, const char* filename) {
         mz_bool statusInFile = mz_zip_reader_file_stat(&zip_archive, i, &fstat);
 
         if ( aux_isDir(fstat.m_filename) ){
-            aux_print(mycat(FILE IS A DIR, ), "");
+            aux_print("File is a dir", "");
             /* perform recursive call or discard the message */
 
         } else if ( !statusInFile ) {
