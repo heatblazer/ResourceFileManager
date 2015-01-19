@@ -19,7 +19,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ResourceFileManager resourceFileManager(ASSETS_FOLDER);
 
     /* TODO - add some string to pass as argument */
-    QByteArray buffer = resourceFileManager.loadFrom("/archives/Ar1.zip", "knight.png");
+    QByteArray buffer = resourceFileManager.loadFrom("archives/Ar1.zip", "knight.png");
       // QByteArray possesses the following operator
       //     QByteArray operator==(const char *a1, const QByteArray &a2)
       // thus the following code is valid as it compares nullptr (const char*)
