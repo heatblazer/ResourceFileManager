@@ -65,7 +65,7 @@ struct ZFile loadFromZFile(const char* zfilepath, const char* filename) {
             /* perform recursive call or discard the message */
 
         } else if ( !statusInFile ) {
-            aux_print(mycat(READING FILE STAT FAILED, ),"");
+//            aux_print(mycat(READING FILE STAT FAILED, ),"");
             mz_zip_reader_end(&zip_archive);
             return zfile;
         } else {
