@@ -19,7 +19,7 @@ QByteArray ResourceFileManager::loadFrom(const QString& resourceFileName, const 
 {
     QString resourcePath = _resourceFolderPath + "/" + resourceFileName;
     QFileInfo path(resourcePath);
-    qDebug() << "Resources: " + path.filePath();
+    qDebug() << "Resources: " + path.absoluteFilePath();
 
     if (path.isFile()) {
         qDebug() << "Loading file \"" + fileName + "\" form resource file \"" + resourceFileName + "\"";
