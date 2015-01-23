@@ -3,10 +3,44 @@
 # Project created by QtCreator 2014-09-19T18:19:24
 #
 #-------------------------------------------------
+CONFIG += release debug
 
-gcc | clang* {
-    QMAKE_CXXFLAGS = -std=c++11
+#TODO - use QBS file for better checks and compiler settings
+
+gcc {
+    CONFIG(release) {
+        message("Using GCC for release")
+        QMAKE_CXXFLAGS = -std=c++11 -O3
+    } else {
+        message("Using GCC for debug")
+        QMAKE_CXXFLAGS = std=c++11 -Og
+    }
 }
+
+
+clang* {
+    CONFIG(release) {
+        message("Using CLANG for release")
+        QMAKE_CXXFLAGS = -std=c++11 -O3
+    } else {
+        message("Using CLANG for debug")
+        QMAKE_CXXFLAGS = std=c++11 -Og
+    }
+}
+
+
+
+mingw {
+    CONFIG(release) {
+        message("Using MinGW for release")
+        QMAKE_CXXFLAGS = -std=c++11 -O3
+    } else {
+        message("Using MinGW for debug")
+        QMAKE_CXXFLAGS = std=c++11 -Og
+    }
+}
+
+
 
 QT       += core gui
 
