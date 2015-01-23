@@ -58,11 +58,15 @@ struct ZFile loadFromZFile(const char* zfilepath, const char* filename) {
 
         if ( aux_isDir(fstat.m_filename) ){
             zfile_aux_print("File is a dir", "");
+            /* skip the remaining loop and
+             * call a tail recursion
+            TODO test for many directoires with
+             a matching file in each*/
+            continue; /* to recursive */
         }
         else if (!statusInFile) {
             mz_zip_reader_end(&zip_archive);
-
-            return zfile;
+            break;
         }
         else if (strcmp(filename, fstat.m_filename) == 0) {
                 printf("File found: %s\n", fstat.m_filename);
@@ -80,8 +84,14 @@ struct ZFile loadFromZFile(const char* zfilepath, const char* filename) {
                 else {
                     return zfile;
                 }
+
+        } else {
+            /* optimized with tail recursion */
+            printf("Called recursive search.\n");
+            return loadFromZFile(zfilepath, fstat.m_filename);
+
         }
-    }
+    } //end for
 
     mz_zip_reader_end(&zip_archive);
 
