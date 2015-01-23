@@ -2,5 +2,7 @@
     <qresource prefix="/images">
         <file>images/bug_20.png</file>
 		<file>archives/Ar1.zip</file>
+                <file>archives/Ar2.zip</file>
+                <file>archives/Ar3.zip</file>
     </qresource>
 </RCC>
